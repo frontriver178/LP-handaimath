@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阪大数学演習セット | 本格的な入試対策で合格を掴む</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ヘッダー */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #7209b7 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #fff, #a8edea, #fed6e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .price-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto 0;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .price-main {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #fed6e3;
+        }
+
+        .price-option {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* セクション共通 */
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            margin: 50px 0;
+            padding: 80px 0;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+        }
+
+        .section h2 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 25px auto;
+            border-radius: 2px;
+        }
+
+        /* 教材紹介 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-item:hover::before {
+            opacity: 0.05;
+        }
+
+        .feature-item > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.2));
+        }
+
+        .feature-item h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            font-size: 1.1rem;
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        /* こんな方におすすめ */
+        .target-list {
+            list-style: none;
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            gap: 25px;
+        }
+
+        .target-list li {
+            padding: 30px 35px;
+            margin: 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .target-list li::before {
+            content: '✨';
+            font-size: 1.5rem;
+            margin-right: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .target-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        /* 添削サンプル */
+        .sample-image {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .sample-image img {
+            max-width: 100%;
+            height: auto;
+            border: 3px solid rgba(102, 126, 234, 0.2);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .sample-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .sample-description {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 40px 0;
+            text-align: center;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        /* 購入方法 */
+        .purchase-steps {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .step-number {
+            background: #2a5298;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-info {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .contact-info strong {
+            color: #ef6c00;
+            font-size: 1.2rem;
+        }
+
+        /* ボタン */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8a80 50%, #ff5722 100%);
+            color: white;
+            padding: 25px 60px;
+            text-decoration: none;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 40px auto;
+            display: block;
+            max-width: 400px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(255, 107, 107, 0.6);
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin: 25px 0;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #f8f9fa;
+            padding: 20px;
+            font-weight: bold;
+            color: #1e3c72;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #2a5298;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            background: white;
+        }
+
+        /* フッター */
+        .footer {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .footer > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .header {
+                padding: 80px 0;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .price-main {
+                font-size: 2rem;
+            }
+
+            .price-box {
+                padding: 30px;
+            }
+
+            .section {
+                margin: 30px 0;
+                padding: 60px 0;
+            }
+
+            .section h2 {
+                font-size: 2.2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .feature-item {
+                padding: 30px 20px;
+            }
+
+            .feature-icon {
+                font-size: 3rem;
+                margin-bottom: 15px;
+            }
+
+            .feature-item h3 {
+                font-size: 1.3rem;
+                margin-bottom: 15px;
+            }
+
+            .feature-item p {
+                font-size: 1rem;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .cta-button {
+                padding: 20px 40px;
+                font-size: 1.2rem;
+            }
+
+            .target-list li {
+                padding: 25px;
+                font-size: 1.1rem;
+            }
+
+            .sample-description {
+                padding: 25px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1>阪大数学演習セット</h1>
+                <p class="subtitle">解説動画付き | 本格的な入試レベル対策</p>
+                <div class="price-box">
+                    <div class="price-main">基本セット：3,000円</div>
+                    <div class="price-option">添削サポート付き：5,000円</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 教材紹介 -->
+    <div class="section">
+        <div class="container">
+            <h2>教材内容</h2>
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">📚</div>
+                    <h3>厳選15問</h3>
+                    <p>阪大レベルの数学問題<br>5問×3セット構成</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎥</div>
+                    <h3>解説動画</h3>
+                    <p>各セット30分の詳細解説<br>YouTube限定リンク</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📄</div>
+                    <h3>PDF提供</h3>
+                    <p>ダウンロード形式<br>いつでもどこでも学習可能</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✏️</div>
+                    <h3>添削サポート</h3>
+                    <p>プロ講師による添削<br>LINEで手軽に提出</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- こんな方におすすめ -->
+    <div class="section">
+        <div class="container">
+            <h2>こんな方におすすめ</h2>
+            <ul class="target-list">
+                <li>阪大志望の高校生・既卒生</li>
+                <li>何を演習すればいいか迷っている</li>
+                <li>本番レベルの問題に触れたい</li>
+                <li>プロの解説や添削で弱点を知りたい</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 添削サンプル -->
+    <div class="section">
+        <div class="container">
+            <h2>添削サンプル</h2>
+            <div class="sample-image">
+                <img src="添削サンプル.jpg" alt="プロ講師による数学添削サンプル - 具体的なアドバイスと解法の改善点を詳しく解説">
+            </div>
+            <div class="sample-description">
+                実際の添削はこのように、具体的なアドバイス付きで返却されます
+            </div>
+        </div>
+    </div>
+
+    <!-- 購入方法 -->
+    <div class="section">
+        <div class="container">
+            <h2>購入方法</h2>
+            <div class="purchase-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>PayPay送金</strong><br>
+                        ID：@suugaku-store<br>
+                        基本セット：3,000円 / 添削付き：5,000円
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>LINEで連絡</strong><br>
+                        送金スクリーンショットを送付<br>
+                        購入プラン（基本/添削付き）をお知らせください
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>教材受け取り</strong><br>
+                        PDFダウンロードリンクと<br>
+                        解説動画URLをお送りします
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <p><strong>PayPay ID：@suugaku-store</strong></p>
+                <p>※送金後、必ずLINEでご連絡ください</p>
+            </div>
+
+            <a href="#" class="cta-button">今すぐ購入する</a>
+        </div>
+    </div>
+
+    <!-- よくある質問 -->
+    <div class="section">
+        <div class="container">
+            <h2>よくある質問</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">購入後すぐに教材を受け取れますか？</div>
+                <div class="faq-answer">
+                    PayPay送金とLINE連絡確認後、通常1時間以内にダウンロードリンクをお送りします。深夜や早朝の場合は翌朝のお渡しとなる場合があります。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">添削はどのような形で提出しますか？</div>
+                <div class="faq-answer">
+                    手書きの解答をスマホで撮影し、LINEで送信してください。1週間以内に添削済みの画像とアドバイスをお返しします。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">問題のレベルはどの程度ですか？</div>
+                <div class="faq-answer">
+                    阪大入試の実際の出題レベルに合わせて作成しています。基本的な解法を理解した上で、応用力を試す問題構成となっています。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">返金は可能ですか？</div>
+                <div class="faq-answer">
+                    デジタル商品の性質上、原則として返金はお受けできません。ご購入前に内容をよくご確認ください。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2024 阪大数学演習セット. All rights reserved.</p>
+            <p>※この教材はダウンロード販売商品です</p>
+        </div>
+    </div>
+
+    <script>
+        // FAQ アコーディオン
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                
+                // 他のFAQを閉じる
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.style.display = 'none';
+                });
+                document.querySelectorAll('.faq-question::after').forEach(q => {
+                    q.textContent = '+';
+                });
+                
+                // クリックされたFAQを開く/閉じる
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    question.style.setProperty('--content', '"-"');
+                }
+            });
+        });
+
+        // 購入ボタンクリック時の処理
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('PayPay ID: @suugaku-store に送金後、LINEでご連絡ください！');
+        });
+    </script>
+</body>
+</html>
